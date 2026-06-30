@@ -15,11 +15,6 @@ public class U5W1L1Application {
 
         SpringApplication.run(U5W1L1Application.class, args);
 
-        ApplicationContext context = SpringApplication.run(U5W1L1Application.class, args);
-
-        Menu menuDellaPizzeria = context.getBean(Menu.class);
-
-        menuDellaPizzeria.stampaMenu();
     }
 
 }

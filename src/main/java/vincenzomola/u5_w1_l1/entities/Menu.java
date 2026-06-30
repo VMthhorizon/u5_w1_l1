@@ -12,6 +12,14 @@ public class Menu {
         this.drinks = drinks;
     }
 
+    public List<Drink> getDrinks() {
+        return drinks;
+    }
+
+    public List<Pizza> getPizze() {
+        return pizze;
+    }
+
     public void stampaMenu() {
         System.out.println("\n======= IL MENU DELLA PIZZERIA =======");
         System.out.println("\n--- PIZZE ---");
