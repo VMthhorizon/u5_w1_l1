@@ -4,9 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import vincenzomola.u5_w1_l1.enums.StatoTavolo;
 
-
+@Component
 public class Runner implements CommandLineRunner {
 
     private final Logger logger = LoggerFactory.getLogger(Runner.class);
