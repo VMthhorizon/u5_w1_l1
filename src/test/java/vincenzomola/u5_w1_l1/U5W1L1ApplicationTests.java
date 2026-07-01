@@ -18,7 +18,7 @@ class U5W1L1ApplicationTests {
 
 
     @Test
-    @DisplayName("Controlla numero di item nel menu è corretto")
+    @DisplayName("Controlla se numero di item nel menu è corretto")
     void testAddItemMenu() {
         System.out.println("TEST 1");
         Tavolo tavolo1 = new Tavolo(1, 4, StatoTavolo.OCCUPATO);
@@ -42,6 +42,14 @@ class U5W1L1ApplicationTests {
         Pizza pizza1 = new Pizza("Marinara", 10, 100, allToppings);
         assertEquals(expectedResult, pizza1.getCalorie());
     }
-    
 
+    @Test
+    @DisplayName("Lancia eccezione se l'item é null")
+    void testNullMenuItemThrowsExceptions() {
+        Tavolo tavolo1 = new Tavolo(1, 4, StatoTavolo.OCCUPATO);
+        Ordine ordine = new Ordine(1, tavolo1, 2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            ordine.addMenuItem(null);
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package vincenzomola.u5_w1_l1.entities;
 
 import vincenzomola.u5_w1_l1.enums.StatoOrdine;
+import vincenzomola.u5_w1_l1.exceptions.WrongTypeException;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Ordine {
     }
 
     public void addMenuItem(MenuItem item) {
+        if (item == null) throw new WrongTypeException("Il tipo dell'oggetto inserito NON E' VALIDO");
         this.elementiMenu.add(item);
     }
 
