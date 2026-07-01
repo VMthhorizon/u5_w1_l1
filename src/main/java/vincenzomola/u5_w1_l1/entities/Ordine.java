@@ -38,6 +38,10 @@ public class Ordine {
         return numeroCoperti;
     }
 
+    public List<MenuItem> getElementiMenu() {
+        return elementiMenu;
+    }
+
     public double total(double coperto) {
         double totaleMenu = elementiMenu.stream()
                 .mapToDouble(MenuItem::getPrezzo)
