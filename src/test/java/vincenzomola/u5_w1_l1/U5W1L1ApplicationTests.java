@@ -44,12 +44,17 @@ class U5W1L1ApplicationTests {
     }
 
     @Test
-    @DisplayName("Lancia eccezione se l'item é null")
-    void testNullMenuItemThrowsExceptions() {
+    @DisplayName("Deve lanciare IllegalArgumentException se l'item aggiunto è null")
+    void testAddMenuItemThrowsExceptionWhenNull() {
         Tavolo tavolo1 = new Tavolo(1, 4, StatoTavolo.OCCUPATO);
         Ordine ordine = new Ordine(1, tavolo1, 2);
-        assertThrows(IllegalArgumentException.class, () -> {
-            ordine.addMenuItem(null);
-        });
+
+        IllegalArgumentException eccezioneLanciata = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    ordine.addMenuItem(null);
+                }
+        );
+        assertEquals("ELEMENTO NULLO!", eccezioneLanciata.getMessage());
     }
 }
