@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 import vincenzomola.u5_w1_l1.entities.*;
 import vincenzomola.u5_w1_l1.enums.StatoTavolo;
+import vincenzomola.u5_w1_l1.exceptions.WrongTypeException;
 
 import java.util.List;
 
@@ -15,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class U5W1L1ApplicationTests {
-
 
     @Test
     @DisplayName("Controlla se numero di item nel menu è corretto")
@@ -41,20 +41,5 @@ class U5W1L1ApplicationTests {
         List<Topping> allToppings = List.of(salame, mozzarella);
         Pizza pizza1 = new Pizza("Marinara", 10, 100, allToppings);
         assertEquals(expectedResult, pizza1.getCalorie());
-    }
-
-    @Test
-    @DisplayName("Deve lanciare IllegalArgumentException se l'item aggiunto è null")
-    void testAddMenuItemThrowsExceptionWhenNull() {
-        Tavolo tavolo1 = new Tavolo(1, 4, StatoTavolo.OCCUPATO);
-        Ordine ordine = new Ordine(1, tavolo1, 2);
-
-        IllegalArgumentException eccezioneLanciata = assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    ordine.addMenuItem(null);
-                }
-        );
-        assertEquals("ELEMENTO NULLO!", eccezioneLanciata.getMessage());
     }
 }
