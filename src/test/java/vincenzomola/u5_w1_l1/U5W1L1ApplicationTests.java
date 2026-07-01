@@ -4,18 +4,23 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.springframework.boot.ApplicationContextFactory;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import vincenzomola.u5_w1_l1.config.PizzeriaConfig;
 import vincenzomola.u5_w1_l1.entities.*;
 import vincenzomola.u5_w1_l1.enums.StatoTavolo;
 import vincenzomola.u5_w1_l1.exceptions.WrongTypeException;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class U5W1L1ApplicationTests {
+
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(PizzeriaConfig.class);
 
     @Test
     @DisplayName("Controlla se numero di item nel menu è corretto")
@@ -41,5 +46,44 @@ class U5W1L1ApplicationTests {
         List<Topping> allToppings = List.of(salame, mozzarella);
         Pizza pizza1 = new Pizza("Marinara", 10, 100, allToppings);
         assertEquals(expectedResult, pizza1.getCalorie());
+    }
+
+    @Test
+    @DisplayName("Check if Margherita is 5 euros")
+    void testMargeritaPrice() {
+        Pizza margherita = ctx.getBean("margherita", Pizza.class);
+        assertEquals(5, margherita.getPrezzo());
+    }
+
+    @Test
+    @DisplayName("Check if pizza doppio prosciuto has 2 prosciutto topping")
+    void testPizzeriaMenu() {
+        Topping prosciutto = ctx.getBean("prosciutto", Topping.class);
+        Pizza doppioProsciutto = ctx.getBean("margheritaDoppioProsciutto", Pizza.class);
+        long prosciuttoTopping = doppioProsciutto.getToppings()
+                .stream()
+                .filter(topping -> topping.equals(prosciutto))
+                .count();
+        assertEquals(2, prosciuttoTopping);
+    }
+
+    @Test
+    @DisplayName("Controlla pizza hawaian contiene prosciutto e ananas")
+    void testHawaianaToppings() {
+        Topping prosciutto = ctx.getBean("prosciutto", Topping.class);
+        Topping ananas = ctx.getBean("ananas", Topping.class);
+        Pizza hawaiana = ctx.getBean("hawaiianPizza", Pizza.class);
+
+        boolean hasProsciutto = hawaiana.getToppings()
+                .stream()
+                .anyMatch(prosciutto::equals);
+        boolean hasAnanas = hawaiana.getToppings()
+                .stream()
+                .anyMatch(ananas::equals);
+
+        assertAll(
+                () -> assertTrue(hasProsciutto),
+                () -> assertTrue(hasAnanas)
+        );
     }
 }

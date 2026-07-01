@@ -51,4 +51,5 @@ public class Ordine {
         double totaleCoperti = this.numeroCoperti * coperto;
         return totaleMenu + totaleCoperti;
     }
+
 }

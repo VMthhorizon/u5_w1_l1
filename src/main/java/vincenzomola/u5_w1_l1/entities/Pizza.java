@@ -16,6 +16,10 @@ public class Pizza extends MenuItem {
         this.toppings = new ArrayList<>(toppings);
     }
 
+    public List<Topping> getToppings() {
+        return toppings;
+    }
+
     @Override
     public double getPrezzo() {
         return super.getPrezzo() + toppings.stream()
